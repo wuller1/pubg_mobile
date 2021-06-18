@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "dev": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
