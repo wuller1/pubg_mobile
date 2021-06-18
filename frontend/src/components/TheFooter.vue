@@ -1,0 +1,26 @@
+<template>
+  <el-footer>The Footer</el-footer>
+</template>
+<style>
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0 0 100px;
+  /* bottom = footer height */
+  padding: 25px;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+</style>
