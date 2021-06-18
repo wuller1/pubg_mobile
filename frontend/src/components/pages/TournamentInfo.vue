@@ -16,15 +16,12 @@ export default {
   },
   methods: {
     getTournamentInfo() {
-      fetch(
-        "http://localhost:5000/api/v1/tournaments/" + this.$route.params.id,
-        {
-          method: "GET", // or 'PUT'
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch("/api/v1/tournaments/" + this.$route.params.id, {
+        method: "GET", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           this.tournamentInfo = data.data;

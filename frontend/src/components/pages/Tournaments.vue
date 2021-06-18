@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     getTournaments() {
-      fetch("http://localhost:5000/api/v1/tournaments", {
+      fetch("/api/v1/tournaments", {
         method: "GET", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
