@@ -9,7 +9,7 @@ const errorHandler = require("./middleware/error.js");
 const path = require("path");
 
 // env vars
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "./backend/config/config.env" });
 
 // Connect to DB
 connectDB();
@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/public"));
 
   //Handle SPA
-  app.get(/.*/, (req. res) => res.sendFile(__dirname + '/public/index.html'));
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
 }
 
 const PORT = process.env.PORT || 5000;
