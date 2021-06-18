@@ -40,6 +40,14 @@ app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 
+//Handle production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(__dirname + "/public"));
+
+  //Handle SPA
+  app.get(/.*/, (req. res) => res.sendFile(__dirname + '/public/index.html'));
+}
+
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
