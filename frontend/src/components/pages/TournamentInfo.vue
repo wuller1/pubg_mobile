@@ -1,38 +1,28 @@
 <template>
-  <div v-if="tournamentInfo">
-    <img :src="tournamentInfo.image" alt="" />
-    <div>{{ tournamentInfo.title }}</div>
+  <div v-if="tournamentInfo.data">
+    <img :src="tournamentInfo.data.image" alt="" />
+    <div>{{ tournamentInfo.data.title }}</div>
     <el-button type="primary">Участвовать</el-button>
-    <div>{{ tournamentInfo.description }}</div>
+    <div>{{ tournamentInfo.data.description }}</div>
   </div>
+  <div v-else>Loading data...</div>
 </template>
 
 <script>
+import AxiosApi from "../../AxiosApi";
 export default {
   data() {
     return {
-      tournamentInfo: null,
+      tournamentInfo: { data: {} },
     };
   },
-  methods: {
-    getTournamentInfo() {
-      fetch("/api/v1/tournaments/" + this.$route.params.id, {
-        method: "GET", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.tournamentInfo = data.data;
-        })
-        .catch((error) => {
-          console.error("Error:", error.message);
-        });
-    },
-  },
-  mounted() {
-    this.getTournamentInfo();
+  methods: {},
+  async created() {
+    try {
+      this.tournamentInfo = await AxiosApi.getTournament(this.$route.params.id);
+    } catch (err) {
+      this.error = err.message;
+    }
   },
 };
 </script>

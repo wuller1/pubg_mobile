@@ -1,3 +1,4 @@
+import AxiosApi from "../../AxiosApi";
 export default {
   namespaced: true,
   state() {
@@ -7,25 +8,13 @@ export default {
   },
   mutations: {},
   actions: {
-    getTournaments() {
-      fetch("http://localhost:5000/api/v1/tournaments", {
-        method: "GET", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+    async login(payload) {
+      await AxiosApi.login({
+        email: payload.email,
+        password: payload.password,
+      });
     },
+    signup(context, payload) {},
   },
-  getters: {
-    tournamentsAll(state) {
-      return state.tournamentsData;
-    },
-  },
+  getters: {},
 };

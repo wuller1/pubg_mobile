@@ -1,7 +1,7 @@
 <template>
-  <div v-if="tournaments">
+  <div v-if="tournaments.data">
     <base-card
-      v-for="tournament in tournaments"
+      v-for="tournament in tournaments.data"
       :key="tournament._id"
       :title="tournament.title"
       :image="tournament.image"
@@ -10,33 +10,24 @@
     >
     </base-card>
   </div>
+  <div v-else>loading data...</div>
 </template>
 <script>
+import AxiosApi from "../../AxiosApi";
 export default {
   data() {
     return {
       tournaments: {},
+      error: "",
     };
   },
-  methods: {
-    getTournaments() {
-      fetch("/api/v1/tournaments", {
-        method: "GET", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.tournaments = data.data;
-        })
-        .catch((error) => {
-          console.error("Error:", error.message);
-        });
-    },
-  },
-  mounted() {
-    this.getTournaments();
+  methods: {},
+  async created() {
+    try {
+      this.tournaments = await AxiosApi.getTournaments();
+    } catch (err) {
+      this.error = err.message;
+    }
   },
 };
 </script>
