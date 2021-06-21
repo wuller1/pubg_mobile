@@ -22,7 +22,6 @@ const TournamentSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "no-image.jpg",
       trim: true,
     },
     description: {

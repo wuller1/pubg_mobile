@@ -4,7 +4,7 @@ const colors = require("colors");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
-var cors = require("cors");
+const cors = require("cors");
 const errorHandler = require("./middleware/error.js");
 const path = require("path");
 
@@ -31,8 +31,9 @@ app.use(cookieParser());
 //File upload
 app.use(fileupload());
 
-// Set static folder
+// Set static folders
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/uploads")));
 
 //Mount routers
 app.use("/api/v1/tournaments", tournaments);

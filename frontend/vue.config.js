@@ -7,6 +7,9 @@ module.exports = {
       "/api": {
         target: "http://localhost:5000/",
       },
+      "/images": {
+        target: "http://localhost:5000/images/",
+      },
     },
   },
 };

@@ -22,7 +22,12 @@
             <router-link class="nav-link" to="/tournaments"
               >Турниры</router-link
             >
-            <router-link class="nav-link" to="/admin">Админ</router-link>
+            <router-link
+              v-if="isAdmin || isPublisher"
+              class="nav-link"
+              to="/admin"
+              >Админ</router-link
+            >
             <router-link v-if="!isLoggedIn" class="nav-link" to="/login"
               >Войти</router-link
             >
@@ -64,7 +69,8 @@ export default {
   data() {
     return {
       loggedIn: false,
-      role: "",
+      isAdmin: false,
+      isPublisher: false,
       userName: "",
       error: "",
     };
@@ -73,8 +79,11 @@ export default {
     isLoggedIn() {
       return this.$store.getters["auth/isAuthenticated"];
     },
-    isadmin() {
-      return this.$store.getters["auth/isAuthenticated"];
+    isAdmin() {
+      return this.$store.getters["auth/isAdmin"];
+    },
+    isPublisher() {
+      return this.$store.getters["auth/isPublisher"];
     },
   },
   methods: {
