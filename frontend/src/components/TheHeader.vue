@@ -45,7 +45,7 @@
               >Войти</router-link
             >
             <router-link
-              @click="toggle, logout"
+              @click="toggle(); logout()"
               v-else
               class="nav-link"
               to="/tournaments"

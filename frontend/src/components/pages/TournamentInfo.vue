@@ -1,13 +1,24 @@
 <template>
-  <div v-if="tournamentInfo.data">
-    <img :src="tournamentInfo.data.image" alt="" />
-    <div>{{ tournamentInfo.data.title }}</div>
-    <el-button type="primary">Участвовать</el-button>
-    <div>{{ tournamentInfo.data.description }}</div>
-  </div>
-  <div v-else>
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+  <div class="container">
+    <ul class="nav nav-tabs m-3">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Инфо</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Игроки</a>
+      </li>
+    </ul>
+
+    <div v-if="tournamentInfo.data">
+      <img :src="tournamentInfo.data.image" alt="" />
+      <div>{{ tournamentInfo.data.title }}</div>
+      <el-button type="primary">Участвовать</el-button>
+      <div>{{ tournamentInfo.data.description }}</div>
+    </div>
+    <div v-else>
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
 </template>
