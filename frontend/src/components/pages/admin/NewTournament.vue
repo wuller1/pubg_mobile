@@ -95,10 +95,11 @@ export default {
           },
           body: form,
         });
-        console.log(await upload.json());
+        
       } catch (err) {
         this.error = err.message;
       }
+      this.$router.push({ path: '/tournaments' })
     },
   },
 };

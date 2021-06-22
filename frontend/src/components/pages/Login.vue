@@ -56,6 +56,8 @@ export default {
       }
 
       this.isLoading = false;
+      // this.$router.push('/')
+      this.$router.go(-1)
     },
   },
   computed: {

@@ -63,9 +63,6 @@ import AxiosApi from "../AxiosApi";
 export default {
   data() {
     return {
-      loggedIn: false,
-      isAdmin: false,
-      isPublisher: false,
       userName: "",
       error: "",
     };
@@ -84,7 +81,6 @@ export default {
   methods: {
     toggle() {
       const menuToggle = this.$refs.navbarNavAltMarkup;
-      console.log(menuToggle);
       const bsCollapse = new bootstrap.Collapse(menuToggle);
       bsCollapse.toggle();
     },

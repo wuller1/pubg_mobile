@@ -16,6 +16,15 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Предыдущая</a></li>
+        <li v-for="n in pagesCount" :key="n" class="page-item">
+          <a class="page-link" href="#">{{ n }}</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+      </ul>
+    </nav>
   </div>
 </template>
 <script>
@@ -25,14 +34,23 @@ export default {
     return {
       tournaments: {},
       error: "",
+      page: "",
     };
   },
   methods: {},
+  computed: {
+    pagesCount() {
+      if (this.tournaments.pagination) {
+        return this.tournaments.pagination.numberOfPages;
+      }
+    },
+  },
   async created() {
     try {
       this.tournaments = await AxiosApi.getTournaments();
     } catch (err) {
       this.error = err.message;
+      console.log(this.error);
     }
   },
 };

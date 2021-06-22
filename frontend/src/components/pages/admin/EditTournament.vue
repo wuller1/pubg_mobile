@@ -109,6 +109,7 @@ export default {
             body: form,
           });
         }
+        this.$router.push('/admin')
       } catch (err) {
         console.log(err);
         this.error = err.message;

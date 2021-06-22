@@ -41,6 +41,7 @@ export default {
   methods: {
     async delete_tournament(id) {
       await AxiosApi.deleteTournament(id, this.token);
+      this.$router.push({path: '/tournaments'})
     },
   },
 };

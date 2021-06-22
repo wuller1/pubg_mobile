@@ -47,6 +47,10 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   //pagination result
   const pagination = {};
+  pagination.page = page;
+  pagination.limit=limit;
+  pagination.total = total
+  pagination.numberOfPages = Math.ceil(total / limit)
 
   if (endIndex < total) {
     pagination.next = {
