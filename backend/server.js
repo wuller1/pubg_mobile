@@ -33,7 +33,7 @@ app.use(fileupload());
 
 // Set static folders
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "public/uploads")));
+app.use(express.static(path.join(__dirname, "uploads")));
 
 //Mount routers
 app.use("/api/v1/tournaments", tournaments);
