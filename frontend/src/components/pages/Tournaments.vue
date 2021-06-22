@@ -11,7 +11,11 @@
       >
       </base-card>
     </div>
-    <div v-else>loading data...</div>
+    <div v-else>
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
   </div>
 </template>
 <script>

@@ -1,9 +1,9 @@
 <template>
-  <el-container>
-    <el-header> <the-header></the-header> </el-header>
-    <el-main><the-main></the-main></el-main>
+  <div>
+    <the-header></the-header>
+    <the-main></the-main>
     <the-footer></the-footer>
-  </el-container>
+  </div>
 </template>
 <style></style>
 <script>

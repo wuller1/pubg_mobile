@@ -5,7 +5,11 @@
     <el-button type="primary">Участвовать</el-button>
     <div>{{ tournamentInfo.data.description }}</div>
   </div>
-  <div v-else>Loading data...</div>
+  <div v-else>
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -13,7 +17,7 @@ import AxiosApi from "../../AxiosApi";
 export default {
   data() {
     return {
-      tournamentInfo: { data: {} },
+      tournamentInfo: { data: null },
     };
   },
   methods: {},
