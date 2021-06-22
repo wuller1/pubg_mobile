@@ -4,10 +4,10 @@ const url = "/api/v1/tournaments/";
 
 class AxiosApi {
   // Get all tournaments
-  static getTournaments(params) {
+  static getTournaments(page) {
     return new Promise(async (resolve, reject) => {
       try {
-        const res = await axios.get(url);
+        const res = await axios.get(`${url}?page=${page}`);
         const data = res.data;
         resolve(data);
       } catch (err) {

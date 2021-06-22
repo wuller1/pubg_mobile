@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="tournaments.data">
+    <div class="wrapper" v-if="tournaments.data">
       <base-card
         v-for="tournament in tournaments.data"
         :key="tournament._id"
@@ -16,13 +16,22 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <nav aria-label="Page navigation example">
+    <nav>
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Предыдущая</a></li>
-        <li v-for="n in pagesCount" :key="n" class="page-item">
-          <a class="page-link" href="#">{{ n }}</a>
+        <li v-if="previousPage" class="page-item">
+          <a @click="goToPage(previousPage)" class="page-link">Предыдущая</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+        <li
+          v-for="n in pagesCount"
+          :key="n"
+          @click="goToPage(n)"
+          class="page-item"
+        >
+          <a class="page-link">{{ n }}</a>
+        </li>
+        <li v-if="nextPage" class="page-item">
+          <a @click="goToPage(nextPage)" class="page-link">Следующая</a>
+        </li>
       </ul>
     </nav>
   </div>
@@ -34,31 +43,58 @@ export default {
     return {
       tournaments: {},
       error: "",
-      page: "",
+      page: 1,
     };
   },
-  methods: {},
+  methods: {
+    async getTournaments() {
+      try {
+        this.tournaments = await AxiosApi.getTournaments(this.page);
+      } catch (err) {
+        this.error = err.message;
+        console.log(this.error);
+      }
+      console.log(this.tournaments.data);
+    },
+    goToPage(page) {
+      this.page = page;
+    },
+  },
+  watch: {
+    page: "getTournaments",
+  },
   computed: {
     pagesCount() {
       if (this.tournaments.pagination) {
         return this.tournaments.pagination.numberOfPages;
       }
     },
+    previousPage() {
+      if (this.page > 1) {
+        return this.page - 1;
+      }
+      return false;
+    },
+    nextPage() {
+      if (this.page >= this.pagesCount) {
+        return false;
+      }
+      return this.page + 1;
+    },
   },
   async created() {
-    try {
-      this.tournaments = await AxiosApi.getTournaments();
-    } catch (err) {
-      this.error = err.message;
-      console.log(this.error);
-    }
+    this.getTournaments();
   },
 };
 </script>
 <style scoped>
-div {
+.wrapper {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
 }
 </style>
