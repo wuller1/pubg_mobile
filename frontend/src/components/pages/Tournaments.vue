@@ -1,16 +1,18 @@
 <template>
-  <div v-if="tournaments.data">
-    <base-card
-      v-for="tournament in tournaments.data"
-      :key="tournament._id"
-      :title="tournament.title"
-      :image="tournament.image"
-      :description="tournament.description"
-      :id="tournament._id"
-    >
-    </base-card>
+  <div class="container">
+    <div v-if="tournaments.data">
+      <base-card
+        v-for="tournament in tournaments.data"
+        :key="tournament._id"
+        :title="tournament.title"
+        :image="tournament.image"
+        :description="tournament.description"
+        :id="tournament._id"
+      >
+      </base-card>
+    </div>
+    <div v-else>loading data...</div>
   </div>
-  <div v-else>loading data...</div>
 </template>
 <script>
 import AxiosApi from "../../AxiosApi";
