@@ -85,7 +85,7 @@ a.btn {
   bottom: 0;
   width: 100%;
   text-shadow: 0px 0px 20px rgb(0, 0, 0);
-  background-color: rgba(5, 5, 5, 0.8);
+  background-color: rgba(5, 5, 5, 0.6);
   display: flex;
   flex-direction: column;
   align-items: center;

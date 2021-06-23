@@ -19,8 +19,8 @@
 }
 .card {
   border: 0px solid black;
-  max-height: 250px;
-  max-width: 100%;
+  height: 220px;
+  max-width: 320px;
 }
 .card-body {
   position: absolute;
@@ -40,13 +40,13 @@
   bottom: 0;
   width: 100%;
   text-shadow: 0px 0px 20px rgb(0, 0, 0);
-  background-color: rgba(5, 5, 5, 0.411);
+  background-color: rgba(5, 5, 5, 0.6);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .card-img-top {
-  height: 250px;
+  height: 220px;
   object-fit: cover;
 }
 button {
