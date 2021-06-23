@@ -8,6 +8,7 @@
         :image="tournament.image"
         :description="tournament.description"
         :id="tournament._id"
+        :startsAt="tournament.startsAt"
       >
       </base-card-admin>
     </div>

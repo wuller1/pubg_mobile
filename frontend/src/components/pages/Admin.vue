@@ -40,20 +40,21 @@ aside {
 }
 section {
   width: 100%;
-  border: 1px solid #eee;
   display: block;
 }
 div.nav {
   font-size: 20px;
-  background-color: #212529;
+  background-color: #fff512;
   color: #eee;
   display: flex;
   justify-content: center;
-  color: #fff512;
+  color: #9c4100;
+  font-weight: bold;
 }
 div.nav:hover {
   cursor: pointer;
-  color: #ebb014;
+  color: #fff512;
+  background-color: #ebb014;
 }
 </style>
 <script></script>

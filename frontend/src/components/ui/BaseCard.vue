@@ -26,7 +26,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  color: white;
+  color: #ffde40;
   /* background-color: rgba(78, 78, 78, 0.171); */
   min-height: 100%;
   min-width: 100%;

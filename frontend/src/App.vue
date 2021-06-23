@@ -7,7 +7,7 @@
 </template>
 <style>
 body {
-  background-color: #000;
+  background-color: #090907;
 }
 </style>
 <script>

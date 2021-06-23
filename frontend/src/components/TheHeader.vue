@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/">PUBG mobile</router-link>
         <button
@@ -131,10 +131,31 @@ export default {
 </script>
 
 <style scoped>
+#navbarNavAltMarkup {
+  color: black;
+}
 a {
   text-decoration: none;
 }
 a:hover {
   text-decoration: none;
+}
+.navbar {
+  background-color: #ffde40;
+  padding: 0px;
+}
+.nav-link {
+  color: #9c4100;
+  font-weight: bold;
+  height: 100%;
+  margin: 0px;
+  padding: 16px;
+}
+.nav-link:hover {
+  background-color: #ebb014;
+}
+
+.navbar-brand {
+  color: #9c4100;
 }
 </style>

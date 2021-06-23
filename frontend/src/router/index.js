@@ -10,7 +10,7 @@ import EditTournament from "../components/pages/admin/EditTournament";
 const routes = [
   {
     path: "/",
-    component: Home,
+    component: Tournaments,
   },
   {
     path: "/tournaments",

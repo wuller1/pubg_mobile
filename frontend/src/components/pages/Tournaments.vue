@@ -19,7 +19,7 @@
     </div>
     <nav>
       <ul class="pagination">
-        <li v-if="previousPage" class="page-item dark">
+        <li v-if="previousPage" class="page-item">
           <a @click="goToPage(previousPage)" class="page-link">Предыдущая</a>
         </li>
         <li
@@ -88,8 +88,15 @@ export default {
 };
 </script>
 <style scoped>
-.dark {
-  background-color: rgb(0, 0, 0);
+.page-link {
+  background-color: #ffde40;
+  border-color: #090907;
+  border-width: 2px;
+  color: #9c4100;
+  font-weight: bold;
+}
+.page-link:hover {
+  cursor: pointer;
 }
 .wrapper {
   display: flex;
