@@ -31,6 +31,9 @@
   min-height: 100%;
   min-width: 100%;
 }
+.card-body:hover {
+  background-color: rgba(158, 157, 157, 0.294);
+}
 .text {
   position: absolute;
   left: 0;

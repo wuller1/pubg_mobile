@@ -34,8 +34,6 @@ export default {
 };
 </script>
 <style scoped>
-main {
-}
 aside {
   background-color: #eee;
   min-width: 200px;
@@ -47,10 +45,15 @@ section {
 }
 div.nav {
   font-size: 20px;
+  background-color: #212529;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  color: #fff512;
 }
 div.nav:hover {
   cursor: pointer;
-  color: rgb(187, 138, 250);
+  color: #ebb014;
 }
 </style>
 <script></script>

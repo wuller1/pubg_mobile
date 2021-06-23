@@ -152,4 +152,31 @@ img {
   max-width: 300px;
   max-height: 300px;
 }
+input,
+textarea,
+select {
+  background-color: #ffde40;
+  border-color: #fff512;
+  color: #090907;
+  border-color: #ebb014;
+  font-weight: bold;
+}
+form {
+  color: #fff512;
+  font-weight: bold;
+}
+button {
+  background-color: #de8d00;
+  border: #de8d00;
+}
+button:hover {
+  background-color: #ebb014;
+}
+input[type="file"]::file-selector-button {
+  background-color: #ebb014;
+  font-weight: bold;
+}
+input[type="file"]::file-selector-button:hover {
+  background-color: #de8d00;
+}
 </style>
