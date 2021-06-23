@@ -20,6 +20,7 @@
 .card {
   border: 0px solid black;
   max-height: 250px;
+  max-width: 100%;
 }
 .card-body {
   position: absolute;
