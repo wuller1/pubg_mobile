@@ -1,6 +1,6 @@
 <template>
-  <router-link class="rounded" :to="`/tournaments/${id}`"
-    ><div class="card m-5" style="width: 25rem;">
+  <div class="rounded" :to="`/tournaments/${id}`">
+    <div class="card m-5" style="width: 25rem;">
       <img :src="image" class="card-img-top" />
       <div class="card-body bold">
         <div class="text">
@@ -8,7 +8,7 @@
           <p class="m-0 bold">Начало турнира: {{ dateTime }}</p>
           <h5 class="card-title bold">{{ title }}</h5>
         </div>
-        <div class="center">
+        <div class="buttons">
           <a :href="`/tournaments/${id}/edit`" class="btn edit mb-3"
             ><i class="bi bi-pencil-square"></i
           ></a>
@@ -21,11 +21,11 @@
         </div>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <style scoped>
-.center {
+.buttons {
   position: absolute;
   top: 1em;
   right: 1em;
