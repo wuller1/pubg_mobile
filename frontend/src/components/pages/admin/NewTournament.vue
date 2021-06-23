@@ -25,6 +25,8 @@
           type="datetime-local"
           id="datetime"
           class="form-control"
+          pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+          required
         />
       </div>
       <div class="mb-3">
@@ -95,11 +97,10 @@ export default {
           },
           body: form,
         });
-        
       } catch (err) {
         this.error = err.message;
       }
-      this.$router.push({ path: '/tournaments' })
+      this.$router.push({ path: "/tournaments" });
     },
   },
 };
