@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="wrapper" v-if="tournaments.data">
       <base-card
         v-for="tournament in tournaments.data"
@@ -8,6 +8,7 @@
         :image="tournament.image"
         :description="tournament.description"
         :id="tournament._id"
+        :startsAt="tournament.startsAt"
       >
       </base-card>
     </div>
@@ -18,7 +19,7 @@
     </div>
     <nav>
       <ul class="pagination">
-        <li v-if="previousPage" class="page-item">
+        <li v-if="previousPage" class="page-item dark">
           <a @click="goToPage(previousPage)" class="page-link">Предыдущая</a>
         </li>
         <li
@@ -54,7 +55,6 @@ export default {
         this.error = err.message;
         console.log(this.error);
       }
-      console.log(this.tournaments.data);
     },
     goToPage(page) {
       this.page = page;
@@ -88,9 +88,12 @@ export default {
 };
 </script>
 <style scoped>
+.dark {
+  background-color: rgb(0, 0, 0);
+}
 .wrapper {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .pagination {

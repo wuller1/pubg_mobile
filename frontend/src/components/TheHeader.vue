@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/">PUBG mobile</router-link>
         <button
@@ -37,6 +37,28 @@
               to="/admin"
               >Админ</router-link
             >
+            <div class="space"></div>
+            <!-- <form @submit.prevent="signup" class="d-flex">
+              <input
+                class="form-control me-2"
+                type="text"
+                placeholder="Имя пользователя"
+              />
+              <input
+                class="form-control me-2"
+                type="password"
+                placeholder="Пароль"
+              />
+              <button
+                class="btn btn-warning"
+                @click="toggle"
+                v-if="!isLoggedIn"
+                to="/login"
+                type="button"
+              >
+                Войти
+              </button>
+            </form> -->
             <router-link
               @click="toggle"
               v-if="!isLoggedIn"
@@ -45,7 +67,17 @@
               >Войти</router-link
             >
             <router-link
-              @click="toggle(); logout()"
+              @click="toggle"
+              v-if="!isLoggedIn"
+              class="nav-link"
+              to="/register"
+              >Зарегестрироваться</router-link
+            >
+            <router-link
+              @click="
+                toggle();
+                logout();
+              "
               v-else
               class="nav-link"
               to="/tournaments"

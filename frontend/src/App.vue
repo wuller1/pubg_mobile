@@ -5,7 +5,11 @@
     <the-footer></the-footer>
   </div>
 </template>
-<style></style>
+<style>
+body {
+  background-color: #000;
+}
+</style>
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import TheMain from "./components/TheMain.vue";

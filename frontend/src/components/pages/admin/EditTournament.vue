@@ -97,7 +97,6 @@ export default {
           this.token,
           this.id
         );
-        console.log("updated successfully");
 
         if (this.file) {
           const form = new FormData();

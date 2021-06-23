@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container mt-3">
     <!-- <input type="email" name="" id="" /> -->
-    <form @submit.prevent="signup">
+    <form @submit.prevent="login">
       <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
+        <label for="email" class="form-label">Адрес электронной почты</label>
         <input
           type="email"
           class="form-control"
@@ -13,7 +13,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">Пароль</label>
         <input
           type="password"
           class="form-control"
@@ -21,7 +21,7 @@
           v-model="password"
         />
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Войти</button>
     </form>
 
     <!-- <el-input placeholder="email" v-model="email" clearable></el-input>
@@ -44,7 +44,7 @@ export default {
     };
   },
   methods: {
-    async signup() {
+    async login() {
       this.isLoading = true;
       try {
         await this.$store.dispatch("auth/login", {
@@ -57,7 +57,7 @@ export default {
 
       this.isLoading = false;
       // this.$router.push('/')
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
   },
   computed: {
