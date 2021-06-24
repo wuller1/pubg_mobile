@@ -19,19 +19,14 @@
     </div>
     <nav>
       <ul class="pagination">
-        <li v-if="previousPage" class="page-item">
-          <a @click="goToPage(previousPage)" class="page-link">Предыдущая</a>
+        <li v-if="previousPage" class="">
+          <a @click="goToPage(previousPage)" class="page-link">ПРЕДЫДУЩАЯ</a>
         </li>
-        <li
-          v-for="n in pagesCount"
-          :key="n"
-          @click="goToPage(n)"
-          class="page-item"
-        >
+        <li v-for="n in pagesCount" :key="n" @click="goToPage(n)" class="">
           <a class="page-link">{{ n }}</a>
         </li>
-        <li v-if="nextPage" class="page-item">
-          <a @click="goToPage(nextPage)" class="page-link">Следующая</a>
+        <li v-if="nextPage" class="">
+          <a @click="goToPage(nextPage)" class="page-link">СЛЕДУЮЩАЯ</a>
         </li>
       </ul>
     </nav>
@@ -89,11 +84,11 @@ export default {
 </script>
 <style scoped>
 .page-link {
-  background-color: #ffde40;
-  border-color: #090907;
-  border-width: 2px;
-  color: #9c4100;
+  background-color: #dd9933;
+
+  color: white;
   font-weight: bold;
+  border-top-right-radius: 0rem;
 }
 .page-link:hover {
   cursor: pointer;
@@ -102,9 +97,14 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 80px;
 }
 .pagination {
   display: flex;
   justify-content: center;
 }
+.page-item {
+  border-radius: 0px;
+}
 </style>
+``

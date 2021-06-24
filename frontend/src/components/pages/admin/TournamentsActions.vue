@@ -96,4 +96,11 @@ export default {
   display: flex;
   justify-content: center;
 }
+.page-link {
+  background-color: #ffde40;
+  border-color: #090907;
+  border-width: 2px;
+  color: #9c4100;
+  font-weight: bold;
+}
 </style>

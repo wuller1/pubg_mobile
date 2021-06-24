@@ -1,8 +1,10 @@
 <template>
-  <header>
+  <header id="navigation_main" class="sticky">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">PUBG mobile</router-link>
+        <router-link class="navbar-brand" to="/"
+          ><img src="LOGO.png" alt=""
+        /></router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -22,20 +24,20 @@
           <div class="navbar-nav">
             <router-link
               @click="toggle"
-              class="nav-link active"
+              class="nav-link"
               aria-current="page"
               to="/"
-              >Домой</router-link
+              >ДОМОЙ</router-link
             >
             <router-link @click="toggle" class="nav-link" to="/tournaments"
-              >Турниры</router-link
+              >ТУРНИРЫ</router-link
             >
             <router-link
               @click="toggle"
               v-if="isAdmin || isPublisher"
               class="nav-link"
               to="/admin"
-              >Админ</router-link
+              >АДМИН</router-link
             >
             <div class="space"></div>
             <!-- <form @submit.prevent="signup" class="d-flex">
@@ -64,14 +66,14 @@
               v-if="!isLoggedIn"
               class="nav-link"
               to="/login"
-              >Войти</router-link
+              >ВОЙТИ</router-link
             >
             <router-link
               @click="toggle"
               v-if="!isLoggedIn"
               class="nav-link"
               to="/register"
-              >Зарегестрироваться</router-link
+              >ЗАРЕГЕСТРИРОВАТЬСЯ</router-link
             >
             <router-link
               @click="
@@ -81,7 +83,7 @@
               v-else
               class="nav-link"
               to="/tournaments"
-              >Выйти</router-link
+              >ВЫЙТИ</router-link
             >
           </div>
         </div>
@@ -137,9 +139,7 @@ export default {
 a {
   text-decoration: none;
 }
-a:hover {
-  text-decoration: none;
-}
+
 .navbar {
   background-color: #ffde40;
   padding: 0px;
@@ -150,12 +150,25 @@ a:hover {
   height: 100%;
   margin: 0px;
   padding: 16px;
+  border-bottom: 3px solid #ffde40;
+  border-top: 3px solid #ffde40;
 }
 .nav-link:hover {
   background-color: #ebb014;
+  border-bottom: 3px solid #9c4100;
+  border-top: 3px solid #ebb014;
 }
 
 .navbar-brand {
   color: #9c4100;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+}
+img {
+  height: 40px;
 }
 </style>

@@ -7,7 +7,13 @@
 </template>
 <style>
 body {
-  background-color: #090907;
+  background: url("./assets/patch-section-bg-4b4bd9fba7.jpg");
+  font-family: "PT Sans Narrow", sans-serif;
+  padding: 0px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
 <script>

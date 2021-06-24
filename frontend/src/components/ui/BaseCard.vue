@@ -1,51 +1,57 @@
 <template>
-  <router-link class="rounded" :to="`/tournaments/${id}`"
-    ><div class="card m-5" style="width: 25rem;">
-      <img :src="image" class="card-img-top" />
-      <div class="card-body bold">
-        <div class="text">
-          <!-- <p class="card-text center">{{ description }}</p> -->
-          <p class="m-0 bold">Начало турнира: {{ dateTime }}</p>
-          <h5 class="card-title bold">{{ title }}</h5>
-        </div>
+  <div class="m-2">
+    <div class="">
+      <img :src="image" class="card-image-new" />
+    </div>
+    <div class="content">
+      <div class="text">
+        <!-- <p class="card-text center">{{ description }}</p> -->
+        <p class="m-0 bold start">
+          НАЧАЛО ТУРНИРА: {{ dateTime.substring(0, dateTime.length - 3) }}
+        </p>
+        <h5 class="card-title bold title">{{ title.toUpperCase() }}</h5>
       </div>
     </div>
-  </router-link>
+    <router-link class="" :to="`/tournaments/${id}`">
+      <div class="more">ПОДРОБНЕЕ</div>
+    </router-link>
+  </div>
 </template>
 
 <style scoped>
-.bold {
+.more {
+  background-color: #f2a900;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: 1.3em;
+}
+.start {
+  font-size: 1.4em;
   font-weight: bold;
 }
-.card {
-  border: 0px solid black;
-  height: 220px;
-  max-width: 320px;
+.title {
+  font-size: 1.4em;
+  font-weight: normal;
 }
-.card-body {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #ffde40;
-  /* background-color: rgba(78, 78, 78, 0.171); */
-  min-height: 100%;
-  min-width: 100%;
+/* .bold {
+  font-weight: bold;
+} */
+
+.content {
+  background-color: white;
 }
-.card-body:hover {
-  background-color: rgba(158, 157, 157, 0.294);
-}
+
 .text {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-shadow: 0px 0px 20px rgb(0, 0, 0);
-  background-color: rgba(5, 5, 5, 0.6);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.card-img-top {
+.card-image-new {
+  /* height: 220px; */
+  width: 320px;
   height: 220px;
   object-fit: cover;
 }
