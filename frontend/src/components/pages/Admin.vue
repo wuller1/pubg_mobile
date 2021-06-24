@@ -34,6 +34,9 @@ export default {
 };
 </script>
 <style scoped>
+main {
+  margin-top: 60px;
+}
 aside {
   background-color: #eee;
   min-width: 200px;

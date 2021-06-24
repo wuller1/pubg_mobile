@@ -50,7 +50,7 @@
         ></textarea>
       </div>
       <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Добавить</button>
+        <button type="submit" class="">Добавить</button>
       </div>
     </form>
   </main>
@@ -114,6 +114,8 @@ img {
 input,
 textarea,
 select {
+  border: none;
+  border-bottom: 3px;
   background-color: #ffde40;
   border-color: #fff512;
   color: #090907;
@@ -121,12 +123,17 @@ select {
   font-weight: bold;
 }
 form {
-  color: #fff512;
+  color: black;
   font-weight: bold;
 }
 button {
-  background-color: #de8d00;
-  border: #de8d00;
+  background-color: #f2a900;
+  border: #f2a900;
+  font-weight: bold;
+  padding: 10px 80px;
+  margin: 0 auto;
+  display: block;
+  color: #fff;
 }
 button:hover {
   background-color: #ebb014;
