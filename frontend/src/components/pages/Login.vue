@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="login">
     <!-- <input type="email" name="" id="" /> -->
-    <img src="LOGO.png" alt="" />
+    <img src="../../assets/LOGO.png" alt="" />
     <form @submit.prevent="login">
       <div class="mb-3">
         <input

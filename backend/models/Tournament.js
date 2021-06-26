@@ -15,6 +15,12 @@ const TournamentSchema = new mongoose.Schema(
       trim: true,
       maxlength: [5, "Тип турнира не должен содержать более 5 символов"],
     },
+    map: {
+      type: String,
+      required: [true, "Введите название карты"],
+      trim: true,
+      maxlength: [50, "Название карты не должно содержать более 50 символов"],
+    },
     startsAt: {
       type: Date,
       required: false,
