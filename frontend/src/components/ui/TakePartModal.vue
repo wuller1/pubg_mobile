@@ -1,9 +1,9 @@
 <template>
   <!-- The Modal -->
-  <div ref="modal" class="modal" @click="close">
+  <div ref="modal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-      <span class="close" @click="close">&times;</span>
+      <span class="close" @click.exact="close">&times;</span>
       <form @submit.prevent="register">
         <div class="container" id="login">
           <!-- <input type="email" name="" id="" /> -->
@@ -12,32 +12,20 @@
             <div class="mb-3">
               <input
                 _ngcontent-eny-c79=""
-                type="email"
-                pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
-                autocomplete
+                type="input"
                 autofocus
-                placeholder="АДРЕС ЭЛ. ПОЧТЫ"
-                v-model="email"
-                aria-label="АДРЕС ЭЛ. ПОЧТЫ"
-                ref="email"
+                placeholder="NICKNAME В ИГРЕ"
+                v-model="nickname"
+                aria-label="NICKNAME В ИГРЕ"
+                ref="nickname"
               />
             </div>
-            <div class="mb-3">
-              <input
-                type="password"
-                class=""
-                ref="password"
-                id="password"
-                v-model="password"
-                placeholder="ПАРОЛЬ"
-              />
-            </div>
+            <div class="text"><p>Стоимость регистрации на матч: 5$</p></div>
             <button type="submit" class="enter">
-              УЧАСТВОВАТЬ
+              ОПЛАТИТЬ ВНУТРЕННЕЙ ВАЛЮТОЙ
             </button>
+            <div id="paypal-button-container"></div>
           </form>
-          <div>У ВАС НЕТ УЧ. ЗАПИСИ?</div>
-          <div class="register"></div>
         </div>
       </form>
     </div>
@@ -45,18 +33,47 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      nickname: "",
+    };
+  },
   methods: {
     close() {
       this.$refs.modal.style.display = "none";
       this.$emit("toggle_take_part");
     },
+    paypalButton() {
+      paypal
+        .Buttons({
+          createOrder: function(data, actions) {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: "5",
+                  },
+                },
+              ],
+            });
+          },
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+              alert(
+                "Transaction completed by " + details.payer.name.given_name
+              );
+            });
+          },
+        })
+        .render("#paypal-button-container"); // Display payment options on your web page
+    },
+  },
+  mounted() {
+    this.paypalButton();
   },
 };
 </script>
 <style scoped>
-#login {
-  margin-top: 80px;
-}
 input {
   display: block;
   text-align: center;
@@ -77,7 +94,6 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 437px;
   flex-direction: column;
 }
 
@@ -89,8 +105,9 @@ input:focus {
 .enter {
   width: 100%;
   border: none;
+  border-radius: 5px;
   background-color: #f2a900;
-  color: #000000;
+  color: #fff;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 0;
@@ -101,11 +118,14 @@ img {
 }
 
 .modal {
-  display: block;
-  position: fixed;
+  /* display: block;
+  position: fixed; */
   z-index: 1;
-  left: 0;
-  top: 0;
+  /* left: 0;
+  top: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -118,9 +138,8 @@ img {
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
   border-radius: 0px;
-  min-height: 800px;
 }
 
 .close {
@@ -137,5 +156,12 @@ img {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+#paypal-button-container {
+  margin-top: 15px;
+}
+.text {
+  display: flex;
+  justify-content: center;
 }
 </style>

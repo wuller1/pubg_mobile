@@ -1,9 +1,9 @@
 <template>
   <div>
-    <input-modal
+    <take-part-modal
       v-if="take_part"
       @toggle_take_part="toggleTakePart"
-    ></input-modal>
+    ></take-part-modal>
     <div v-if="tournamentInfo.data" class="container">
       <h1 class="title">
         {{ tournamentInfo.data.title.toUpperCase() }}
@@ -32,8 +32,10 @@
         </li>
       </ul> -->
         <ul class="tab_ul">
-          <li @click="setComponent('info')" class="active">Инфо</li>
-          <li @click="setComponent('gamers')" class="tab">Игроки</li>
+          <li ref="info" @click="setComponent('info')" class="active">Инфо</li>
+          <li ref="gamers" @click="setComponent('gamers')" class="tab">
+            Игроки
+          </li>
         </ul>
         <div v-if="component === 'info'" id="info">
           <div class="mode">
@@ -74,9 +76,9 @@
 
 <script>
 import AxiosApi from "../../AxiosApi";
-import InputModal from "../ui/TakePartModal.vue";
+import TakePartModal from "../ui/TakePartModal.vue";
 export default {
-  components: { InputModal },
+  components: { TakePartModal },
   data() {
     return {
       tournamentInfo: { data: null },
@@ -91,6 +93,13 @@ export default {
     },
     setComponent(name) {
       this.component = name;
+      if (name === "info") {
+        this.refs.info.classList.add("active");
+        this.refs.info.classList.remove("tab");
+      } else {
+        this.refs.gamers.classList.add("active");
+        this.refs.gamers.classList.remove("tab");
+      }
     },
   },
   computed: {
