@@ -56,7 +56,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="balance" class="form-label">Балланс</label>
+        <label for="balance" class="form-label">Баланс</label>
         <input
           type="input"
           class="form-control"
@@ -64,6 +64,7 @@
           v-model="balance"
           readonly
         />
+        <button>Пополнить</button>
       </div>
       <button type="submit" class="enter">Сохранить изменения</button>
     </form>
