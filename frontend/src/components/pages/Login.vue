@@ -106,11 +106,6 @@ input:focus {
   flex-direction: column;
 }
 
-.orange {
-  color: #f2a900;
-  font-weight: 600;
-  font-size: 16px;
-}
 .enter {
   width: 100%;
   border: none;

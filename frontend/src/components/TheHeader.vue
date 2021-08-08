@@ -85,6 +85,7 @@
               to="/tournaments"
               >ВЫЙТИ</router-link
             >
+            <router-link class="nav-link" to="/profile">ПРОФИЛЬ</router-link>
           </div>
         </div>
       </div>

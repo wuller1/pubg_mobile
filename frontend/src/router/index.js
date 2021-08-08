@@ -6,6 +6,7 @@ import Register from "../components/pages/Register";
 import Login from "../components/pages/Login";
 import Admin from "../components/pages/Admin";
 import EditTournament from "../components/pages/admin/EditTournament";
+import Profile from "../components/pages/Profile";
 
 const routes = [
   {
@@ -35,6 +36,10 @@ const routes = [
   {
     path: "/tournaments/:id/edit",
     component: EditTournament,
+  },
+  {
+    path: "/profile",
+    component: Profile,
   },
 ];
 
