@@ -86,6 +86,9 @@
               >ВЫЙТИ</router-link
             >
             <router-link class="nav-link" to="/profile">ПРОФИЛЬ</router-link>
+            <router-link class="nav-link" to="/balance"
+              >БАЛАНС: {{}}</router-link
+            >
           </div>
         </div>
       </div>
