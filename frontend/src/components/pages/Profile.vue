@@ -64,7 +64,7 @@
           v-model="balance"
           readonly
         />
-        <button>Пополнить</button>
+        <button class="fill">Пополнить</button>
       </div>
       <button type="submit" class="enter">Сохранить изменения</button>
     </form>
@@ -105,5 +105,8 @@ input:focus {
   letter-spacing: 0;
   height: 65px;
   margin-bottom: 80px;
+}
+.fill {
+  display: inline;
 }
 </style>

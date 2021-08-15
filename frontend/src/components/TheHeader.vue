@@ -87,7 +87,7 @@
             >
             <router-link class="nav-link" to="/profile">ПРОФИЛЬ</router-link>
             <router-link class="nav-link" to="/balance"
-              >БАЛАНС: {{}}</router-link
+              >БАЛАНС: <span class="red">{{ 0 }}</span> 🎟</router-link
             >
           </div>
         </div>
@@ -144,6 +144,10 @@ a {
   text-decoration: none;
 }
 
+.red {
+  color: red;
+  font-weight: bold;
+}
 .navbar {
   background-color: #ffde40;
   padding: 0px;

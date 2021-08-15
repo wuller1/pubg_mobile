@@ -1,7 +1,7 @@
 <template>
   <div>
     <the-header></the-header>
-    <the-main></the-main>
+    <div class="main"><the-main></the-main></div>
     <the-footer></the-footer>
   </div>
 </template>
@@ -14,6 +14,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.main {
+  margin-top: 80px;
 }
 </style>
 <script>

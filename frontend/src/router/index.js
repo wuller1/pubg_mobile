@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
 import Tournaments from "../components/pages/Tournaments.vue";
 import TournamentInfo from "../components/pages/TournamentInfo.vue";
 import Register from "../components/pages/Register";
@@ -7,6 +6,7 @@ import Login from "../components/pages/Login";
 import Admin from "../components/pages/Admin";
 import EditTournament from "../components/pages/admin/EditTournament";
 import Profile from "../components/pages/Profile";
+import Balance from "../components/pages/Balance";
 
 const routes = [
   {
@@ -40,6 +40,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/balance",
+    component: Balance,
   },
 ];
 
