@@ -3,19 +3,19 @@ const ErrorResponse = require("../utils/errorResponse.js");
 const asyncHandler = require("../middleware/async");
 const Tournament = require("../models/Tournament");
 const Registration = require('../models/Registration')
+const User = require('../models/User')
 
 // @desc    Create new tournament
 // @route   GET /api/v1/tournaments/:id/register
 // @access  Private
 exports.getTournamentRegistrations = asyncHandler(async (req, res, next) => {
-  const tournament = req.params.id
 
+  const tournament = req.params.id
   const tournamentRegistration = await Registration.findOne({ tournament }).populate('user')
-  console.log(tournamentRegistration)
   if (!tournamentRegistration) {
     return res.status(400).json({ success: false });
   }
-  res.status(201).json({ success: true, data: tournamentRegistration });
+  res.status(200).json({ success: true, data: tournamentRegistration });
 });
 
 // @desc    Create new tournament
@@ -23,10 +23,21 @@ exports.getTournamentRegistrations = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.registerTournament = asyncHandler(async (req, res, next) => {
   const tournament = req.params.id
+  const user = req.body.user
   const data = {
     tournament,
-    user: req.body.user
+    user
   }
+
+  // If there is enough tickets
+  const userData = await User.findById(user)
+  const balance = userData.balance
+  if (!balance || balance < 2) {
+    return res.status(400).json({ success: false, message: "There is not enough tickets" })
+  }
+
+  const changeBalance = await User.findByIdAndUpdate(user, { balance: balance - 2 })
+
   const tournamentRegistration = await Registration.create(data);
   if (!tournamentRegistration) {
     return res.status(400).json({ success: false });
@@ -144,5 +155,4 @@ exports.tournamentImageUpload = asyncHandler(async (req, res, next) => {
       data: file.name,
     });
   });
-  console.log(file.name);
 });
