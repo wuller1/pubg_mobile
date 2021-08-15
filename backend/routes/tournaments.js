@@ -6,6 +6,8 @@ const {
   updateTournament,
   deleteTournament,
   tournamentImageUpload,
+  registerTournament,
+  getTournamentRegistrations
 } = require("../controllers/tournaments");
 
 const Tournament = require("../models/Tournament");
@@ -27,5 +29,6 @@ router
   .get(getTournament)
   .put(protect, authorize("publisher", "admin"), updateTournament)
   .delete(protect, authorize("publisher", "admin"), deleteTournament);
+router.route('/:id/register').post(protect, registerTournament).get(protect, getTournamentRegistrations)
 
 module.exports = router;

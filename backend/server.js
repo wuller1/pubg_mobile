@@ -38,7 +38,6 @@ app.use(express.static(path.join(__dirname, "uploads")));
 //Mount routers
 app.use("/api/v1/tournaments", tournaments);
 app.use("/api/v1/auth", auth);
-
 app.use(errorHandler);
 
 //Handle production

@@ -2,6 +2,38 @@ const path = require("path");
 const ErrorResponse = require("../utils/errorResponse.js");
 const asyncHandler = require("../middleware/async");
 const Tournament = require("../models/Tournament");
+const Registration = require('../models/Registration')
+
+// @desc    Create new tournament
+// @route   GET /api/v1/tournaments/:id/register
+// @access  Private
+exports.getTournamentRegistrations = asyncHandler(async (req, res, next) => {
+  const tournament = req.params.id
+
+  const tournamentRegistration = await Registration.findOne({ tournament }).populate('user')
+  console.log(tournamentRegistration)
+  if (!tournamentRegistration) {
+    return res.status(400).json({ success: false });
+  }
+  res.status(201).json({ success: true, data: tournamentRegistration });
+});
+
+// @desc    Create new tournament
+// @route   POST /api/v1/tournaments/:id/register
+// @access  Private
+exports.registerTournament = asyncHandler(async (req, res, next) => {
+  const tournament = req.params.id
+  const data = {
+    tournament,
+    user: req.body.user
+  }
+  const tournamentRegistration = await Registration.create(data);
+  if (!tournamentRegistration) {
+    return res.status(400).json({ success: false });
+  }
+  res.status(201).json({ success: true, data: tournamentRegistration });
+});
+
 // @desc Get all tournaments
 // @route GET /api/v1/tournaments
 // @access Public
