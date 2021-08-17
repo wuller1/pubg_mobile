@@ -7,7 +7,6 @@ const TournamentRegistrationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: User,
       required: [true, "Поле user не должно быть пустым"],
-      trim: true,
       unique: [true, "Вы уже зарегестрированы на данном турнире"],
     },
     paypal: {

@@ -3,6 +3,8 @@ export default {
   state() {
     return {
       userId: null,
+      name: null,
+      balance: null,
       token: null,
       role: null,
       expires: null,
@@ -12,6 +14,8 @@ export default {
   mutations: {
     setUser(state, payload) {
       state.token = payload.token;
+      state.name = payload.name;
+      state.balance = payload.balance;
       state.userId = payload.userId;
       state.role = payload.role;
       state.expires = payload.expires;
@@ -37,9 +41,19 @@ export default {
       const role = localStorage.getItem("role");
       const email = localStorage.getItem("email");
       const expires = localStorage.getItem("expires");
+      const name = localStorage.getItem("name");
+      const balance = localStorage.getItem("balance");
 
       if (token && userId) {
-        context.commit("setUser", { token, userId, role, email, expires });
+        context.commit("setUser", {
+          token,
+          userId,
+          role,
+          email,
+          expires,
+          name,
+          balance,
+        });
       }
     },
     logout(context) {
@@ -48,6 +62,8 @@ export default {
       localStorage.removeItem("role");
       localStorage.removeItem("email");
       localStorage.removeItem("expires");
+      localStorage.removeItem("name");
+      localStorage.removeItem("balance");
 
       context.commit("setUser", {
         token: null,
@@ -55,6 +71,8 @@ export default {
         role: null,
         email: null,
         expires: null,
+        name: null,
+        balance: null,
       });
     },
     async auth(context, payload) {
@@ -85,6 +103,8 @@ export default {
       localStorage.setItem("role", responseData.role);
       localStorage.setItem("email", responseData.email);
       localStorage.setItem("expires", responseData.expires);
+      localStorage.setItem("name", responseData.name);
+      localStorage.setItem("balance", responseData.balance);
 
       context.commit("setUser", {
         token: responseData.token,
@@ -92,6 +112,8 @@ export default {
         role: responseData.role,
         email: responseData.email,
         expires: responseData.expires,
+        name: responseData.name,
+        balance: responseData.balance,
       });
     },
   },
@@ -114,6 +136,9 @@ export default {
       if (state.role === "publisher") {
         return true;
       }
+    },
+    balance(state) {
+      return state.balance;
     },
   },
 };

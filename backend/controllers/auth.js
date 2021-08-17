@@ -64,14 +64,19 @@ const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
 
-  res.status(statusCode).cookie("token", token, options).json({
-    success: true,
-    role: user.role,
-    email: user.email,
-    id: user._id,
-    token,
-    expires: options.expires,
-  });
+  res
+    .status(statusCode)
+    .cookie("token", token, options)
+    .json({
+      success: true,
+      role: user.role,
+      email: user.email,
+      id: user._id,
+      token,
+      name: user.name,
+      balance: user.balance,
+      expires: options.expires,
+    });
 };
 
 // @desc    Get current logged in user
