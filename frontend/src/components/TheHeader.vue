@@ -87,7 +87,7 @@
             >
             <router-link class="nav-link" to="/profile">ПРОФИЛЬ</router-link>
             <router-link class="nav-link" to="/balance"
-              >БАЛАНС: <span class="red">{{ 0 }}</span> 🎟</router-link
+              >БАЛАНС: <span class="red">{{ balance }}</span> 🎟</router-link
             >
           </div>
         </div>
@@ -103,6 +103,7 @@ export default {
     return {
       userName: "",
       error: "",
+      balance: 0,
     };
   },
   computed: {
@@ -117,6 +118,22 @@ export default {
     },
   },
   methods: {
+    async getBalance() {
+      const token = localStorage.getItem("token");
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      let data = await fetch("/api/v1/auth/me", requestOptions);
+      data = await data.json();
+      const balance = data.data.balance;
+      this.balance = balance;
+    },
     toggle() {
       const menuToggle = this.$refs.navbarNavAltMarkup;
       const bsCollapse = new bootstrap.Collapse(menuToggle);
@@ -127,11 +144,7 @@ export default {
     },
   },
   async created() {
-    try {
-      this.tournaments = await AxiosApi.getTournaments();
-    } catch (err) {
-      this.error = err.message;
-    }
+    this.getBalance();
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <div class="balance">
-      Ваш баланс: <span class="red">{{ 135 + balance }}</span> билетов
+      Ваш баланс: <span class="red">{{ balance }}</span> билетов
     </div>
     <div class="tickets">
       <section>
@@ -88,7 +88,7 @@ export default {
     };
   },
   methods: {
-    async balance() {
+    async getBalance() {
       const token = localStorage.getItem("token");
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -99,17 +99,14 @@ export default {
         headers: myHeaders,
       };
 
-      let data = await fetch(
-        "http://localhost:5000/api/v1/auth/me",
-        requestOptions
-      );
+      let data = await fetch("/api/v1/auth/me", requestOptions);
       data = await data.json();
       const balance = data.data.balance;
       this.balance = balance;
     },
   },
   created() {
-    this.balance();
+    this.getBalance();
   },
 };
 </script>
