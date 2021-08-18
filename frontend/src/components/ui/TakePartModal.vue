@@ -20,11 +20,12 @@
                 ref="nickname"
               />
             </div>
-            <div class="text"><p>Стоимость регистрации на матч: 5$</p></div>
-            <button type="submit" class="enter">
-              ОПЛАТИТЬ ВНУТРЕННЕЙ ВАЛЮТОЙ
+            <div class="text">
+              <p>Стоимость регистрации на матч: 2 билета</p>
+            </div>
+            <button @click.prevent="register" type="submit" class="enter">
+              ЗАРЕГЕСТРИРОВАТЬСЯ
             </button>
-            <div id="paypal-button-container"></div>
           </form>
         </div>
       </form>
@@ -39,38 +40,58 @@ export default {
     };
   },
   methods: {
+    async register() {
+      // Проверить баланс
+      const token = localStorage.getItem("token");
+      let myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      let requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      let data = await fetch("/api/v1/auth/me", requestOptions);
+      data = await data.json();
+      const balance = data.data.balance;
+      const id = data.data._id;
+
+      // Если баланс > 2, зарегестрировать
+      if (balance > 2) {
+        myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          `Bearer ${localStorage.getItem("token")}`
+        );
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+          nickName: this.nickname,
+          user: id,
+        });
+
+        requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+        };
+
+        fetch(
+          `/api/v1/tournaments/${this.$route.params.id}/register`,
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      }
+    },
     close() {
       this.$refs.modal.style.display = "none";
       this.$emit("toggle_take_part");
     },
-    paypalButton() {
-      paypal
-        .Buttons({
-          createOrder: function(data, actions) {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: "5",
-                  },
-                },
-              ],
-            });
-          },
-          onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-              alert(
-                "Transaction completed by " + details.payer.name.given_name
-              );
-            });
-          },
-        })
-        .render("#paypal-button-container"); // Display payment options on your web page
-    },
   },
-  mounted() {
-    this.paypalButton();
-  },
+  mounted() {},
 };
 </script>
 <style scoped>

@@ -63,7 +63,11 @@
             <p>5. Обновление результатов может занять до 1 часа.</p>
           </div>
         </div>
-        <div v-else></div>
+        <div v-else>
+          <div v-for="name in users_data" :key="name._id">
+            {{ `${name.nickName}` }}
+          </div>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -85,20 +89,40 @@ export default {
       registered: false,
       take_part: false,
       component: "info",
+      users_data: "",
     };
   },
   methods: {
+    getUsersData() {
+      const token = localStorage.getItem("token");
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+      const url = `/api/v1/tournaments/${this.$route.params.id}/register`;
+      const data = fetch(url, requestOptions)
+        .then((response) => response.json())
+        .then((result) => (this.users_data = result.data))
+        .catch((error) => console.log("error", error));
+    },
     toggleTakePart() {
       this.take_part = !this.take_part;
     },
     setComponent(name) {
       this.component = name;
       if (name === "info") {
-        this.refs.info.classList.add("active");
-        this.refs.info.classList.remove("tab");
+        this.$refs.info.classList.add("active");
+        this.$refs.info.classList.remove("tab");
+        this.$refs.gamers.classList.remove("active");
+        this.$refs.gamers.classList.add("tab");
       } else {
-        this.refs.gamers.classList.add("active");
-        this.refs.gamers.classList.remove("tab");
+        this.$refs.gamers.classList.add("active");
+        this.$refs.gamers.classList.remove("tab");
+        this.$refs.info.classList.remove("active");
+        this.$refs.info.classList.add("tab");
       }
     },
   },
@@ -113,6 +137,8 @@ export default {
     },
   },
   async created() {
+    this.getUsersData();
+
     try {
       this.tournamentInfo = await AxiosApi.getTournament(this.$route.params.id);
     } catch (err) {
@@ -177,7 +203,6 @@ p.header {
 .tab {
   list-style-type: none;
   display: inline;
-  margin-left: 20px;
   text-transform: uppercase;
   padding: 10px 30px;
   border: 2px solid #090907;

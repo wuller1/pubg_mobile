@@ -15,6 +15,11 @@ const TournamentRegistrationSchema = new mongoose.Schema(
       required: [true, "Поле tournament не должно быть пустым"],
       trim: true,
     },
+    nickName: {
+      type: String,
+      required: [true, "Поле nickName не должно быть пустым"],
+      trim: true,
+    },
   },
   { timestamps: true }
 );

@@ -25,9 +25,11 @@ exports.getTournamentRegistrations = asyncHandler(async (req, res, next) => {
 exports.registerTournament = asyncHandler(async (req, res, next) => {
   const tournament = req.params.id;
   const user = req.body.user;
+  const nickName = req.body.nickName;
   const data = {
     tournament,
     user,
+    nickName,
   };
 
   // Find if there is enough tickets
