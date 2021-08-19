@@ -77,19 +77,35 @@ export default {
       this.image = URL.createObjectURL(file);
     },
     async createTournament(event) {
-      const data = {
+      const token = localStorage.getItem("token");
+      const data = JSON.stringify({
         title: this.title,
         type: this.type,
         startsAt: this.startsAt,
         description: this.description,
-      };
+      });
+
       const form = new FormData();
       form.append("file", this.file);
 
       try {
-        const create = await AxiosApi.createTournament(data, this.token);
-        const id = create.data.data._id;
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", `Bearer ${token}`);
 
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: data,
+          redirect: "follow",
+        };
+
+        let fetch_data = await fetch("/api/v1/tournaments/", requestOptions);
+
+        fetch_data = await fetch_data.json();
+        console.log(fetch_data);
+        const id = fetch_data.data._id;
+        // const create = await AxiosApi.createTournament(data, this.token);
         const upload = await fetch(`/api/v1/tournaments/${id}/photo`, {
           method: "PUT",
           headers: {
@@ -98,9 +114,10 @@ export default {
           body: form,
         });
       } catch (err) {
-        this.error = err.message;
+        this.error = err;
+        console.log(err);
       }
-      this.$router.push({ path: "/tournaments" });
+      // this.$router.push({ path: "/tournaments" });
     },
   },
 };
