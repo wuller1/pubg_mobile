@@ -2,6 +2,33 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
 
+// @desc    Update user
+// @route   POST /api/v1/auth/user
+// @access  Public
+exports.updateUser = asyncHandler(async (req, res, next) => {
+  const {
+    lastName,
+    firstName,
+    nickName,
+    country,
+    discordLogin,
+    phoneNumber,
+    id,
+  } = req.body;
+
+  new_data = {
+    lastName,
+    firstName,
+    nickName,
+    country,
+    discordLogin,
+    phoneNumber,
+  };
+
+  const user = await User.findByIdAndUpdate(id, new_data);
+  res.status(200).json({ success: true, data: user });
+});
+
 // @desc    Register user
 // @route   POST /api/v1/auth/register
 // @access  Public

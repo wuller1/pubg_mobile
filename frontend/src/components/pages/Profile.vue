@@ -12,15 +12,20 @@
       </div>
       <div class="mb-3">
         <label for="name" class="form-label">Имя</label>
-        <input type="input" class="form-control" id="name" v-model="name" />
+        <input
+          type="input"
+          class="form-control"
+          id="name"
+          v-model="firstName"
+        />
       </div>
       <div class="mb-3">
-        <label for="nickname" class="form-label">Nickname в игре</label>
+        <label for="nickName" class="form-label">Nickname в игре</label>
         <input
           type="input"
           class="form-control"
           id="nickname"
-          v-model="nickname"
+          v-model="nickName"
         />
       </div>
       <div class="mb-3">
@@ -35,7 +40,12 @@
       </div>
       <div class="mb-3">
         <label for="phone" class="form-label">Номер телефона</label>
-        <input type="phone" class="form-control" id="phone" v-model="phone" />
+        <input
+          type="phone"
+          class="form-control"
+          id="phone"
+          v-model="phoneNumber"
+        />
       </div>
       <div class="mb-3">
         <label for="discord" class="form-label">Логин discord</label>
@@ -43,7 +53,7 @@
           type="discord"
           class="form-control"
           id="discord"
-          v-model="discord"
+          v-model="discordLogin"
         />
       </div>
       <div class="mb-3">
@@ -70,7 +80,69 @@
     </form>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      data: {},
+      lastName: "",
+      firstName: "",
+      nickName: "",
+      country: "",
+      discordLogin: "",
+      email: "",
+      phoneNumber: "",
+      balance: "",
+      id: "",
+    };
+  },
+  methods: {
+    getUserData() {
+      const token = localStorage.getItem("token");
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      fetch("/api/v1/auth/me", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          if (result.data.firstName) {
+            this.firstName = result.data.name;
+          }
+          if (result.data.lastName) {
+            this.lastName = result.data.lastName;
+          }
+          if (result.data.nickName) {
+            this.nickName = result.data.nickName;
+          }
+          if (result.data.phoneNumber) {
+            this.phoneNumber = result.data.phoneNumber;
+          }
+          if (result.data.discordLogin) {
+            this.discordLogin = result.data.discordLogin;
+          }
+          if (result.data.country) {
+            this.country = result.data.country;
+          }
+          this.balance = result.data.balance;
+          this.email = result.data.email;
+          this.id = result.data._id;
+        })
+        .catch((error) => console.log("error", error));
+    },
+    updateUser() {},
+  },
+  created() {
+    this.getUserData();
+  },
+};
+</script>
 <style scoped>
 .container {
   margin-top: 80px;
