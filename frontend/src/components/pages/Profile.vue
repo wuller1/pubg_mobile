@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit.prevent="save">
+    <form @submit.prevent="updateUser">
       <div class="mb-3">
         <label for="lastName" class="form-label">Фамилия</label>
         <input
@@ -74,7 +74,9 @@
           v-model="balance"
           readonly
         />
-        <button class="fill">Пополнить</button>
+        <button class="fill" @click.prevent="">
+          <router-link to="/balance">Пополнить</router-link>
+        </button>
       </div>
       <button type="submit" class="enter">Сохранить изменения</button>
     </form>
@@ -111,9 +113,8 @@ export default {
       fetch("/api/v1/auth/me", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           if (result.data.firstName) {
-            this.firstName = result.data.name;
+            this.firstName = result.data.firstName;
           }
           if (result.data.lastName) {
             this.lastName = result.data.lastName;
@@ -136,7 +137,32 @@ export default {
         })
         .catch((error) => console.log("error", error));
     },
-    updateUser() {},
+    updateUser() {
+      const token = localStorage.getItem("token");
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        lastName: this.lastName,
+        firstName: this.firstName,
+        nickName: this.nickName,
+        country: this.country,
+        discordLogin: this.discordLogin,
+        phoneNumber: this.phoneNumber,
+        id: this.id,
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+      };
+
+      fetch("/api/v1/auth/user", requestOptions)
+        .then((response) => response.json())
+        .then((result) => result)
+        .catch((error) => console.log("error", error));
+    },
   },
   created() {
     this.getUserData();

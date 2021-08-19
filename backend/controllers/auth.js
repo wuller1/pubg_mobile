@@ -33,14 +33,12 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { email, password } = req.body;
 
   // Create user
   const user = await User.create({
-    name,
     email,
     password,
-    role,
   });
 
   sendTokenResponse(user, 200, res);
@@ -100,7 +98,7 @@ const sendTokenResponse = (user, statusCode, res) => {
       email: user.email,
       id: user._id,
       token,
-      name: user.name,
+      firstName: user.name,
       balance: user.balance,
       expires: options.expires,
     });
