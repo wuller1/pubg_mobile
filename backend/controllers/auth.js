@@ -1,6 +1,68 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
+const axios = require("axios");
+
+// @desc    Update user
+// @route   POST /api/v1/auth/link
+// @access  Private
+exports.getLinks = asyncHandler(async (req, res, next) => {
+  // get paypal token
+  const qs = require("qs");
+  let data = qs.stringify({
+    grant_type: "client_credentials",
+  });
+  let config = {
+    method: "post",
+    url: `${process.env.PAYPAL}/v1/oauth2/token`,
+    headers: {
+      Authorization: process.env.PAYPAL_AUTHORIZATION,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    data: data,
+  };
+
+  let d = await axios(config);
+  d = d.data;
+  const token = d.access_token;
+
+  // return link for the user to process payments
+
+  data = JSON.stringify({
+    intent: "sale",
+    payer: {
+      payment_method: "paypal",
+    },
+    transactions: [
+      {
+        amount: {
+          total: `${req.query.amount}`,
+          currency: "USD",
+        },
+      },
+    ],
+    redirect_urls: {
+      return_url: `${process.env.URL}/balance?status=success`,
+      cancel_url: `${process.env.URL}/balance?status=fail`,
+    },
+  });
+
+  config = {
+    method: "post",
+    url: `${process.env.PAYPAL}/v1/payments/payment`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  let payment_url = await axios(config);
+  payment_url = payment_url.data;
+  const link = payment_url.links[1];
+
+  res.status(200).json({ success: true, data: link });
+});
 
 // @desc    Update user
 // @route   POST /api/v1/auth/user

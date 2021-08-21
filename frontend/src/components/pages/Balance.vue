@@ -4,35 +4,35 @@
       Ваш баланс: <span class="red">{{ balance }}</span> билетов
     </div>
     <div class="tickets">
-      <section>
+      <section @click="getLinks(3, 9)">
         <div><img src="../../assets/ticket.jpg" alt="" /></div>
         <div class="number">3 билета</div>
-        <div class="price">Купить за 7$</div>
+        <div class="price">Купить за 9$</div>
       </section>
-      <section>
+      <section @click="fillBalance(5, 14)">
         <div><img src="../../assets/ticket.jpg" alt="" /></div>
         <div class="number">5 билетов</div>
-        <div class="price">Купить за 7$</div>
+        <div class="price">Купить за 14$</div>
       </section>
-      <section>
+      <section @click="fillBalance(10, 27)">
         <div><img src="../../assets/ticket.jpg" alt="" /></div>
         <div class="number">10 билетов</div>
-        <div class="price">Купить за 7$</div>
+        <div class="price">Купить за 27$</div>
       </section>
-      <section>
+      <section @click="fillBalance(20, 52)">
         <div><img src="../../assets/ticket.jpg" alt="" /></div>
         <div class="number">20 билетов</div>
-        <div class="price">Купить за 7$</div>
+        <div class="price">Купить за 52$</div>
       </section>
-      <section>
+      <section @click="fillBalance(50, 125)">
         <div><img src="../../assets/ticket.jpg" alt="" /></div>
         <div class="number">50 билетов</div>
-        <div class="price">Купить за 7$</div>
+        <div class="price">Купить за 125$</div>
       </section>
-      <section>
+      <section @click="fillBalance(100, 240)">
         <div><img src="../../assets/ticket.jpg" alt="" /></div>
         <div class="number">100 билетов</div>
-        <div class="price">Купить за 7$</div>
+        <div class="price">Купить за 240$</div>
       </section>
     </div>
   </main>
@@ -88,6 +88,45 @@ export default {
     };
   },
   methods: {
+    async getLinks(tickets, dollars) {
+      const axios = require("axios");
+      const data = "";
+
+      const config = {
+        method: "get",
+        url: `/api/v1/auth/link?amount=${dollars}`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: data,
+      };
+
+      let redirect_url = await axios(config);
+      redirect_url = redirect_url.data.data.href;
+      window.location.href = redirect_url;
+
+      // get access token
+      // get link to redirect
+    },
+    async fillBalance(balance, dollars) {
+      const token = localStorage.getItem("token");
+      const headers = new Headers();
+      headers.append("Authorization", `Bearer ${token}`);
+      headers.append("Content-Type", "application/json");
+      const body = JSON.stringify({
+        sum: balance,
+      });
+
+      const options = {
+        method: "POST",
+        headers,
+        body,
+      };
+
+      let fill = await fetch("/api/v1/auth/balance", options);
+      fill = fill.json();
+      console.log(fill);
+    },
     async getBalance() {
       const token = localStorage.getItem("token");
       const myHeaders = new Headers();
