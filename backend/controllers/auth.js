@@ -1,9 +1,11 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
+const Payment = require("../models/Payment");
+const Price = require("../models/Price");
 const axios = require("axios");
 
-// @desc    Update user
+// @desc    get paypal links
 // @route   POST /api/v1/auth/link
 // @access  Private
 exports.getLinks = asyncHandler(async (req, res, next) => {
@@ -42,7 +44,7 @@ exports.getLinks = asyncHandler(async (req, res, next) => {
       },
     ],
     redirect_urls: {
-      return_url: `${process.env.URL}/balance?status=success`,
+      return_url: `${process.env.URL}/balance/success`,
       cancel_url: `${process.env.URL}/balance?status=fail`,
     },
   });
@@ -62,6 +64,69 @@ exports.getLinks = asyncHandler(async (req, res, next) => {
   const link = payment_url.links[1];
 
   res.status(200).json({ success: true, data: link });
+});
+
+// @desc    execute payment, get current balance, fill balance
+// @route   POST /api/v1/auth/execute
+// @access  Private
+exports.executePayment = asyncHandler(async (req, res, next) => {
+  // get paypal token
+  const qs = require("qs");
+  let data = qs.stringify({
+    grant_type: "client_credentials",
+  });
+  let config = {
+    method: "post",
+    url: `${process.env.PAYPAL}/v1/oauth2/token`,
+    headers: {
+      Authorization: process.env.PAYPAL_AUTHORIZATION,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    data: data,
+  };
+
+  let d = await axios(config);
+  d = d.data;
+  const token = d.access_token;
+  const payerID = req.body.payerID;
+  const payID = req.body.payID;
+  const userID = req.body.userID;
+
+  // execute payment
+  data = JSON.stringify({
+    payer_id: payerID,
+  });
+
+  config = {
+    method: "post",
+    url: `${process.env.PAYPAL}/v1/payments/payment/${payID}/execute`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data: data,
+  };
+
+  const info = await axios(config);
+  console.log(info.data);
+
+  // create enty in DB for payment
+  const payment = await Payment.create({
+    user: userID,
+    paypal: info.data,
+  });
+
+  // get current balance
+  const user = await User.findById(userID);
+  const balance = user.balance;
+  const amount = info.data.transactions[0].amount.total;
+  const numTickets = await Price.findOne({ price: amount });
+
+  const fillBalance = await User.findByIdAndUpdate(userID, {
+    balance: numTickets,
+  });
+
+  res.status(200).json({ success: true, balance: numTickets });
 });
 
 // @desc    Update user

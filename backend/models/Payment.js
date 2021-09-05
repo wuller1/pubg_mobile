@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 const User = require("../models/User");
 
-const TournamentRegistrationSchema = new mongoose.Schema(
+const Payment = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: User,
       required: [true, "Поле user не должно быть пустым"],
-      unique: [true, "Вы уже зарегестрированы на данном турнире"],
     },
     paypal: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.Object,
       required: [true, "Поле tournament не должно быть пустым"],
       trim: true,
     },
@@ -18,7 +17,4 @@ const TournamentRegistrationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model(
-  "TournamentRegistration",
-  TournamentRegistrationSchema
-);
+module.exports = mongoose.model("Payment", Payment);

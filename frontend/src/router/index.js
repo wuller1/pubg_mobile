@@ -7,6 +7,7 @@ import Admin from "../components/pages/Admin";
 import EditTournament from "../components/pages/admin/EditTournament";
 import Profile from "../components/pages/Profile";
 import Balance from "../components/pages/Balance";
+import Success from "../components/pages/paypal/Success";
 
 const routes = [
   {
@@ -44,6 +45,10 @@ const routes = [
   {
     path: "/balance",
     component: Balance,
+  },
+  {
+    path: "/balance/success",
+    component: Success,
   },
 ];
 

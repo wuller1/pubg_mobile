@@ -4,36 +4,18 @@
       Ваш баланс: <span class="red">{{ balance }}</span> билетов
     </div>
     <div class="tickets">
-      <section @click="getLinks(3, 9)">
-        <div><img src="../../assets/ticket.jpg" alt="" /></div>
-        <div class="number">3 билета</div>
-        <div class="price">Купить за 9$</div>
-      </section>
-      <section @click="fillBalance(5, 14)">
-        <div><img src="../../assets/ticket.jpg" alt="" /></div>
-        <div class="number">5 билетов</div>
-        <div class="price">Купить за 14$</div>
-      </section>
-      <section @click="fillBalance(10, 27)">
-        <div><img src="../../assets/ticket.jpg" alt="" /></div>
-        <div class="number">10 билетов</div>
-        <div class="price">Купить за 27$</div>
-      </section>
-      <section @click="fillBalance(20, 52)">
-        <div><img src="../../assets/ticket.jpg" alt="" /></div>
-        <div class="number">20 билетов</div>
-        <div class="price">Купить за 52$</div>
-      </section>
-      <section @click="fillBalance(50, 125)">
-        <div><img src="../../assets/ticket.jpg" alt="" /></div>
-        <div class="number">50 билетов</div>
-        <div class="price">Купить за 125$</div>
-      </section>
-      <section @click="fillBalance(100, 240)">
-        <div><img src="../../assets/ticket.jpg" alt="" /></div>
-        <div class="number">100 билетов</div>
-        <div class="price">Купить за 240$</div>
-      </section>
+      <div v-for="price in price_data" :key="price._id">
+        <section
+          v-if="price_data"
+          @click="getLinks(price.tickets, price.price)"
+        >
+          <div><img src="../../assets/ticket.jpg" alt="" /></div>
+          <div class="number">
+            {{ price.tickets }} {{ price.tickets == 3 ? "билета" : "билетов" }}
+          </div>
+          <div class="price">Купить за {{ price.price }}$</div>
+        </section>
+      </div>
     </div>
   </main>
 </template>
@@ -85,9 +67,23 @@ export default {
   data() {
     return {
       balance: "",
+      price_data: "",
     };
   },
   methods: {
+    async getPrice() {
+      const axios = require("axios");
+
+      const config = {
+        method: "get",
+        url: "/api/v1/price",
+      };
+
+      let price = await axios(config);
+      price = price.data.data;
+      console.log(price);
+      this.price_data = price;
+    },
     async getLinks(tickets, dollars) {
       const axios = require("axios");
       const data = "";
@@ -146,6 +142,7 @@ export default {
   },
   created() {
     this.getBalance();
+    this.getPrice();
   },
 };
 </script>
